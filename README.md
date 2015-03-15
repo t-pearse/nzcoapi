@@ -1,8 +1,13 @@
-# Nzcoapi
+# New Zealand Companies Office API Gem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nzcoapi`. To experiment with that code, run `bin/console` for an interactive prompt.
+Simple and fast authenticating API wrapper for the New Zealand Companies Office. Full functionality to search by company name, company number and director. Further functionality can be easily exposed inline with API documentation.
 
-TODO: Delete this and the text above, and describe your gem
+
+## About the Companies Office
+
+The New Zealand Companies Office has an API which can be accessed through registration at: [http://www.business.govt.nz/businessdata](http://www.business.govt.nz/businessdata)
+
+Registration is required in order to obtain unique access keys to use the API.
 
 ## Installation
 
@@ -20,15 +25,58 @@ Or install it yourself as:
 
     $ gem install nzcoapi
 
+## Configuration
+
+[Figaro](https://github.com/laserlemon/figaro) is a dependency required to securely store your Companies Office access and secret keys.
+
+Execute the following to setup application.yml to store your Companies Office keys with Figaro.
+
+    $ rails generate nzcoapi:install
+
+Alternatively you can manually add your Companies Office keys:
+
+	# config/application.yml
+	$ nzcoapi_access_key: "J5zFrdbg2iw"
+	$ nzcoapi_secret_key: "fin39USzsZGWgL2yUDQ1C0n6NBtv2"
+
+
 ## Usage
 
-TODO: Write usage instructions here
+Three functions have been exposed, as per below.
 
-## Development
+### Find by Company Number
+	
+	$ NZcoapi.find_company(123566)
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+Full company details based on a unique 'Company Number' will be returned.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Find Director
+
+	$ NZcoapi.find_director("Jones, Bob")
+
+All company directorships (active and inactive) of this individual will be returned.
+
+### Search for a Company
+
+	$ NZcoapi.search_for_company("TradeMe")
+
+Search results for this company name will be returned.
+
+
+All output is returned as parsed XML. Within a rails view it can be quickly navigated with [Nokogiri](https://github.com/sparklemotion/nokogiri), for example:
+
+	# In View
+	<%= NZcoapi.find_company(973228).css('companyName').text %>
+
+	# Returns
+	Trade Me Limited
+
+## Queries
+
+> NB: This Gem is not developed or maintained by the New Zealand Companies Office in anyway.
+
+Please don't hesitate to get in touch if you have any queries and I'll try and point you in the right direction!
+
 
 ## Contributing
 
