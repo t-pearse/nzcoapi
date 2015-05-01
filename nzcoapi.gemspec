@@ -6,16 +6,16 @@ require 'nzcoapi/version'
 Gem::Specification.new do |spec|
   spec.name          = "nzcoapi"
   spec.version       = Nzcoapi::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
+  spec.authors       = ["T Pearse"]
+  spec.email         = ["t.pearse@gmail.com"]
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
+    spec.metadata['allowed_push_host'] = "https://rubygems.org"
   end
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Simple and fast authenticating API wrapper for the New Zealand Companies Office}
+  spec.description   = %q{Search the New Zealand Companies Office register by company name, company number and director. }
+  spec.homepage      = "https://github.com/t-pearse/nzcoapi"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -25,4 +25,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
+
+  spec.add_dependency "httparty"
+  spec.add_dependency "nokogiri"
+  spec.add_dependency "figaro"
 end
